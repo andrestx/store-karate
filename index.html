@@ -23,6 +23,11 @@ according to applicable laws.
   <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=RON&components=buttons,marks,funding-eligibility"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MOTOR PALTA DE INLOCUIT ---->
+  <script 
+  src="https://www.paypal.com/sdk/js?client-id=BAAoXoyuttbeWqbUnr6KDHNENmfT92tW0CcV3nE14BwCzepzKmRMKM7WYVoKwWL_HZ5oXED4YsJHAxkXck&components=hosted-buttons&disable-funding=venmo&currency=EUR">
+</script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap');
     :root {
@@ -99,15 +104,13 @@ according to applicable laws.
   .desktop-only { display: inline; }
 }
 
+    
+
+    
   </style>
-
-
-<!-- MOTOR PALTA DE INLOCUIT ---->
-  <script 
-  src="https://www.paypal.com/sdk/js?client-id=BAAoXoyuttbeWqbUnr6KDHNENmfT92tW0CcV3nE14BwCzepzKmRMKM7WYVoKwWL_HZ5oXED4YsJHAxkXck&components=hosted-buttons&disable-funding=venmo&currency=EUR">
-</script>
-  
 </head>
+  
+  
 <body class="bg-gray-100 text-gray-800 antialiased">
   <!-- Navigation -->
   <nav class="bg-white shadow-lg">
@@ -176,59 +179,9 @@ according to applicable laws.
     </div>
   </section>
 
-  
-  <!-- MODAL -->
-  
-  <!-- Modal Gallery -->
-<div id="book-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-  <div class="relative bg-white rounded-lg p-4 max-w-lg w-full">
-    <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-700 hover:text-red-500 text-2xl">&times;</button>
-    
-    <div class="relative">
-      <img id="modal-image" src="" class="w-full rounded-lg" alt="Book preview">
-      <button onclick="prevImage()" class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white bg-opacity-70 px-2 py-1 rounded-full">&#10094;</button>
-      <button onclick="nextImage()" class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white bg-opacity-70 px-2 py-1 rounded-full">&#10095;</button>
-    </div>
-  </div>
-</div>
+ 
 
   
-  <script>
-  let currentImages = [];
-  let currentIndex = 0;
-
-  function openModal(images) {
-    currentImages = images;
-    currentIndex = 0;
-    document.getElementById('modal-image').src = currentImages[currentIndex];
-    document.getElementById('book-modal').classList.remove('hidden');
-  }
-
-  function closeModal() {
-    document.getElementById('book-modal').classList.add('hidden');
-  }
-
-  function nextImage() {
-    currentIndex = (currentIndex + 1) % currentImages.length;
-    document.getElementById('modal-image').src = currentImages[currentIndex];
-  }
-
-  function prevImage() {
-    currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-    document.getElementById('modal-image').src = currentImages[currentIndex];
-  }
-
-  // Detectează click pe orice galerie de carte
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.book-gallery img').forEach(img => {
-      img.addEventListener('click', (e) => {
-        const galleryDiv = e.target.closest('.book-gallery');
-        const images = JSON.parse(galleryDiv.getAttribute('data-images'));
-        openModal(images);
-      });
-    });
-  });
-</script>
 
   
   <!-- Books Section -->
@@ -236,43 +189,30 @@ according to applicable laws.
     <div class="container mx-auto px-4">
       <div class="flex justify-between items-center mb-12">
         <h2 class="text-3xl font-bold">Cărți <span class="text-blue-600">scrise de Simion Tudorel</span></h2>
-        
       </div>
       
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Book 1 -->
-        <div class="book-card bg-white rounded-xl overflow-hidden shadow-md">
-  <div class="relative book-gallery" data-images='["../gp2.png","../gp21.png","../gp22.png"]'>
-    <img src="../gp2.png" alt="Ghidul practicantului de karate" class="w-full h-48 object-cover cursor-pointer">
-    <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">
-      BESTSELLER
-            </div>
-          </div>
-          <div class="p-6">
-            <div class="flex justify-between items-start mb-2">
-              <h3 class="text-xl font-bold">Ghidul practicantului de karate I</h3>
-              <span class="flex items-center text-yellow-400">
-                <i class="fas fa-star"></i>
-                <span class="ml-1 text-gray-700">4.9</span>
-              </span>
-            </div>
-            <p class="text-gray-600 mb-4">Un om performant, in orice domeniu, este cela care nu abandoneaza, care nu accepta neputinta in ceea ce vrea sa faca, mai ales in ideea de a performa in viata, iar studiul Karate-ului Traditional, asa cum spuneau Maestrii, cum s-a dovedit in timp, in practica, nu este numai un mod de viata, asa cum este viata unui pictor, a unui cantaret, oameni care au performat in ceea ce sunt. Daca este sa cautam, exemple putem gasi cu usurinta, dar nu acestea sunt importante, la un moment dat, in ideea de a fi buni in societate. Nu exista performanta fara efort, fara transpiratie si fara o buna relatie sociala, interumana. - A.I. Brumaru, membru al Uniunii Scriitorilor din Romania</p>
-            <div class="flex justify-between items-center mb-4">
-              <span class="text-lg font-bold">50 Lei</span>
-              <span class="text-sm text-gray-500"><i class="fas fa-download mr-1"></i> 1243 descărcări</span>
-            </div>
-            <div id="paypal-container-6BPNG2QPUCTSS"></div>
+           <div id="paypal-container-6BPNG2QPUCTSS"></div>
 <script>
   paypal.HostedButtons({
     hostedButtonId: "6BPNG2QPUCTSS",
   }).render("#paypal-container-6BPNG2QPUCTSS")
 </script>
-              <i class="fas fa-download mr-2"></i> Descarcă Demo
-            </button>
-          </div>
-        </div>
+    
 
-        <!-- Book 2 -->
+      
+<div id="paypal-container-4X85PV5DR6X46"></div>
+<script>
+  paypal.HostedButtons({
+    hostedButtonId: "4X85PV5DR6X46",
+  }).render("#paypal-container-4X85PV5DR6X46")
+</script>
+      
+    </div>
+
+
+        <!-- Book 2 
         <div class="book-card bg-white rounded-xl overflow-hidden shadow-md">
           <div class="relative">
             <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Productivitate Zen" class="w-full h-48 object-cover">
@@ -308,7 +248,7 @@ according to applicable laws.
           </div>
         </div>
 
-        <!-- Book 3 -->
+        <!-- Book 3 
         <div class="book-card bg-white rounded-xl overflow-hidden shadow-md">
           <div class="relative">
             <img src="https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Codul Creatorului" class="w-full h-48 object-cover">
@@ -343,7 +283,7 @@ according to applicable laws.
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </section>
 
   <!-- Testimonials -->
@@ -441,97 +381,5 @@ according to applicable laws.
       </div>
     </div>
   </footer>
-
-  <script>
-    // Enhanced PayPal Buttons with Loading States
-    function createPayPalButton(containerId, amount, bookName, downloadUrl) {
-      paypal.Buttons({
-        style: {
-          shape: 'rect',
-          color: 'blue',
-          layout: 'vertical',
-          label: 'pay',
-          height: 45
-        },
-        createOrder: function(data, actions) {
-          return actions.order.create({
-            purchase_units: [{
-              amount: {
-                value: amount,
-                breakdown: {
-                  item_total: {
-                    value: amount,
-                    currency_code: 'RON'
-                  }
-                }
-              },
-              items: [
-                {
-                  name: bookName,
-                  unit_amount: {
-                    value: amount,
-                    currency_code: 'RON'
-                  },
-                  quantity: '1',
-                  category: 'DIGITAL_GOODS'
-                }
-              ]
-            }]
-          });
-        },
-        onInit: function(data, actions) {
-          // Disable the button if the user isn't eligible
-          if (data.fundingSource === 'paypal' && !data.fundingEligibility.paypal) {
-            document.querySelector(`#${containerId}`).innerHTML = 
-              '<button class="w-full bg-gray-300 text-gray-600 py-2 px-4 rounded-lg cursor-not-allowed">PayPal indisponibil</button>';
-          }
-        },
-        onClick: function() {
-          // Show loading state
-          const button = document.querySelector(`#${containerId} .paypal-buttons`);
-          if (button) {
-            button.innerHTML = '<div class="loading-spinner"></div>';
-          }
-        },
-        onApprove: function(data, actions) {
-          return actions.order.capture().then(function(details) {
-            // Create a more sophisticated success message
-            const successHTML = `
-              <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
-                <strong class="font-bold">Plată reușită!</strong>
-                <span class="block sm:inline">Mulțumim, ${details.payer.name.given_name}! Vei fi redirecționat pentru descărcare.</span>
-              </div>
-            `;
-            
-            // Insert success message above the button
-            document.querySelector(`#${containerId}`).insertAdjacentHTML('beforebegin', successHTML);
-            
-            // Redirect to download after 2 seconds
-            setTimeout(function() {
-              window.location.href = downloadUrl;
-            }, 2000);
-          });
-        },
-        onError: function(err) {
-          // Show error message
-          const errorHTML = `
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-              <strong class="font-bold">Eroare!</strong>
-              <span class="block sm:inline">A apărut o problemă la procesarea plății. Te rugăm să încerci din nou.</span>
-            </div>
-          `;
-          document.querySelector(`#${containerId}`).insertAdjacentHTML('beforebegin', errorHTML);
-          console.error(err);
-        }
-      }).render(`#${containerId}`);
-    }
-
-    // Initialize buttons
-    document.addEventListener('DOMContentLoaded', function() {
-      createPayPalButton('paypal-button-container-1', '9.99', 'Puterea Gândirii', '/download/puterea-gandirii.pdf');
-      createPayPalButton('paypal-button-container-2', '12.99', 'Productivitate Zen', '/download/productivitate-zen.pdf');
-      createPayPalButton('paypal-button-container-3', '7.99', 'Codul Creatorului', '/download/codul-creatorului.pdf');
-    });
-  </script>
 </body>
 </html>
