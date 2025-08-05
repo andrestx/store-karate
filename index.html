@@ -14,95 +14,473 @@ according to applicable laws.
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Magazin de Cărți PDF</title>
-  <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=EUR"></script> <!-- Inlocuieste 'sb' cu client-id real -->
+  <title>TSKRO | Magazin Online</title>
+  <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=EUR&components=buttons,marks,funding-eligibility"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap');
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --pure-white: #ffffff;
+      --light-gray: #f3f4f6;
+      --dark-gray: #1f2937;
+      --pure-black: #000000;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--light-gray);
+    }
+    .book-card {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    .book-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+    }
+    .nav-link {
+      position: relative;
+    }
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: var(--primary-blue);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover:after {
+      width: 100%;
+    }
+    .download-btn {
+      background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+      transition: all 0.3s ease;
+    }
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+    }
+    .hero-section {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    .feature-icon {
+      color: var(--primary-blue);
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: var(--pure-white);
+      animation: spin 1s ease-in-out infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
-  <header class="bg-white shadow">
-    <div class="container mx-auto p-4">
-      <h1 class="text-3xl font-bold text-center">📚 Magazin de Cărți PDF</h1>
-    </div>
-  </header>
-
-  <main class="container mx-auto py-12">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <!-- Carte 1 -->
-      <div class="bg-white p-6 rounded-xl shadow">
-        <h2 class="text-xl font-semibold mb-2">Puterea Gândirii</h2>
-        <p class="mb-4">Transformă-ți viața cu puterea gândurilor tale.</p>
-        <p class="text-lg font-bold mb-4">9.99 €</p>
-        <div id="paypal-button-container-1"></div>
-      </div>
-
-      <!-- Carte 2 -->
-      <div class="bg-white p-6 rounded-xl shadow">
-        <h2 class="text-xl font-semibold mb-2">Productivitate Zen</h2>
-        <p class="mb-4">Concentrează-te mai bine. Trăiește mai calm.</p>
-        <p class="text-lg font-bold mb-4">12.99 €</p>
-        <div id="paypal-button-container-2"></div>
-      </div>
-
-      <!-- Carte 3 -->
-      <div class="bg-white p-6 rounded-xl shadow">
-        <h2 class="text-xl font-semibold mb-2">Codul Creatorului</h2>
-        <p class="mb-4">Un ghid pentru mințile creative și tehnice.</p>
-        <p class="text-lg font-bold mb-4">7.99 €</p>
-        <div id="paypal-button-container-3"></div>
+<body class="bg-gray-100 text-gray-800 antialiased">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-lg">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center space-x-4">
+          <i class="fas fa-book-open text-2xl text-blue-600"></i>
+          <span class="font-bold text-xl text-black">Sensei <span class="text-blue-600">Simion Tudorel <span class="font-bold text-xl text-black">| TSK Romania</span></span></spam>
+        </div>
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#" class="nav-link text-black font-medium">Acasă</a>
+          <a href="#" class="nav-link text-black font-medium">Contact</a>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button class="p-2 rounded-full hover:bg-gray-100">
+            <i class="fas fa-search text-gray-600"></i>
+          </button>
+          <button class="p-2 rounded-full hover:bg-gray-100 relative">
+            <i class="fas fa-shopping-cart text-gray-600"></i>
+            <span class="absolute -top-1 -right-1 bg-blue-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">3</span>
+          </button>
+          <button class="md:hidden p-2 rounded-full hover:bg-gray-100">
+            <i class="fas fa-bars text-gray-600"></i>
+          </button>
+        </div>
       </div>
     </div>
-  </main>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section text-white py-20">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-6xl font-bold mb-6">Descoperă Arta Karate-ului prin <span class="text-blue-400">Cărți</span></h1>
+      <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Cele mai bune cărți PDF la prețuri accesibile. Descarcă instant după plată.</p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105">
+          Explorează Colecția
+        </button>
+        <button class="bg-transparent border-2 border-white hover:bg-white hover:text-black text-white font-bold py-3 px-8 rounded-lg transition duration-300">
+          Abonează-te
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">De ce să alegi <span class="text-blue-600">cărțile scrise direct de catre maestru?</span>?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center px-6">
+          <div class="feature-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Descărcare Instantă</h3>
+          <p class="text-gray-600">Primești cartea imediat după plată, fără așteptare.</p>
+        </div>
+        <div class="text-center px-6">
+          <div class="feature-icon">
+            <i class="fas fa-lock"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Plăți Securizate</h3>
+          <p class="text-gray-600">Tranzacții protejate prin cele mai noi tehnologii de criptare.</p>
+        </div>
+        <div class="text-center px-6">
+          <div class="feature-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Compatibilitate Totală</h3>
+          <p class="text-gray-600">Cărți optimizate pentru orice dispozitiv, de la telefon la tabletă.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Books Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center mb-12">
+        <h2 class="text-3xl font-bold">Cărți <span class="text-blue-600">Populare</span></h2>
+        <div class="flex space-x-2">
+          <button class="px-4 py-2 bg-white border rounded-l-lg hover:bg-gray-100">
+            <i class="fas fa-th"></i>
+          </button>
+          <button class="px-4 py-2 bg-white border rounded-r-lg hover:bg-gray-100">
+            <i class="fas fa-list"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Book 1 -->
+        <div class="book-card bg-white rounded-xl overflow-hidden shadow-md">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Puterea Gândirii" class="w-full h-48 object-cover">
+            <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">
+              BESTSELLER
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-xl font-bold">Puterea Gândirii</h3>
+              <span class="flex items-center text-yellow-400">
+                <i class="fas fa-star"></i>
+                <span class="ml-1 text-gray-700">4.9</span>
+              </span>
+            </div>
+            <p class="text-gray-600 mb-4">Transformă-ți viața cu puterea gândurilor tale.</p>
+            <div class="flex justify-between items-center mb-4">
+              <span class="text-lg font-bold">9.99 €</span>
+              <span class="text-sm text-gray-500"><i class="fas fa-download mr-1"></i> 1243 descărcări</span>
+            </div>
+            <div id="paypal-button-container-1" class="mb-3"></div>
+            <button class="download-btn w-full text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center">
+              <i class="fas fa-download mr-2"></i> Descarcă Demo
+            </button>
+          </div>
+        </div>
+
+        <!-- Book 2 -->
+        <div class="book-card bg-white rounded-xl overflow-hidden shadow-md">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Productivitate Zen" class="w-full h-48 object-cover">
+            <div class="absolute top-2 right-2 bg-black text-white text-xs font-bold px-2 py-1 rounded">
+              NOU
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-xl font-bold">Productivitate Zen</h3>
+              <span class="flex items-center text-yellow-400">
+                <i class="fas fa-star"></i>
+                <span class="ml-1 text-gray-700">4.7</span>
+              </span>
+            </div>
+            <p class="text-gray-600 mb-4">Concentrează-te mai bine. Trăiește mai calm.</p>
+            <div class="flex justify-between items-center mb-4">
+              <span class="text-lg font-bold">12.99 €</span>
+              <span class="text-sm text-gray-500"><i class="fas fa-download mr-1"></i> 897 descărcări</span>
+            </div>
+            <div id="paypal-button-container-2" class="mb-3"></div>
+            <button class="download-btn w-full text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center">
+              <i class="fas fa-download mr-2"></i> Descarcă Demo
+            </button>
+          </div>
+        </div>
+
+        <!-- Book 3 -->
+        <div class="book-card bg-white rounded-xl overflow-hidden shadow-md">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Codul Creatorului" class="w-full h-48 object-cover">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-xl font-bold">Codul Creatorului</h3>
+              <span class="flex items-center text-yellow-400">
+                <i class="fas fa-star"></i>
+                <span class="ml-1 text-gray-700">4.5</span>
+              </span>
+            </div>
+            <p class="text-gray-600 mb-4">Un ghid pentru mințile creative și tehnice.</p>
+            <div class="flex justify-between items-center mb-4">
+              <span class="text-lg font-bold">7.99 €</span>
+              <span class="text-sm text-gray-500"><i class="fas fa-download mr-1"></i> 1562 descărcări</span>
+            </div>
+            <div id="paypal-button-container-3" class="mb-3"></div>
+            <button class="download-btn w-full text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center">
+              <i class="fas fa-download mr-2"></i> Descarcă Demo
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Ce spun <span class="text-blue-600">cititorii</span> noștri</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <div class="flex items-center mb-4">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Maria Popescu" class="w-12 h-12 rounded-full mr-4">
+            <div>
+              <h4 class="font-bold">Maria Popescu</h4>
+              <div class="flex text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+          </div>
+          <p class="text-gray-600">"Am descărcat 'Puterea Gândirii' și a fost exact ce aveam nevoie. Procesul a fost rapid și cartea este de calitate foarte bună."</p>
+        </div>
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <div class="flex items-center mb-4">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ion Ionescu" class="w-12 h-12 rounded-full mr-4">
+            <div>
+              <h4 class="font-bold">Ion Ionescu</h4>
+              <div class="flex text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+            </div>
+          </div>
+          <p class="text-gray-600">"Productivitate Zen m-a ajutat să îmi organizez mai bine timpul. Interfața site-ului este foarte ușor de utilizat."</p>
+        </div>
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <div class="flex items-center mb-4">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ana Dumitrescu" class="w-12 h-12 rounded-full mr-4">
+            <div>
+              <h4 class="font-bold">Ana Dumitrescu</h4>
+              <div class="flex text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+          </div>
+          <p class="text-gray-600">"Codul Creatorului este o carte excelentă pentru cei care lucrează în domeniul IT. Am primit link-ul de descărcare imediat după plată."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="py-16 bg-blue-600 text-white">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-4">Abonează-te la newsletter</h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">Primește oferte exclusive și noutăți despre cele mai recente cărți adăugate în colecția noastră.</p>
+      <div class="flex flex-col sm:flex-row justify-center max-w-md mx-auto">
+        <input type="email" placeholder="Adresa ta de email" class="px-4 py-3 rounded-l-lg sm:rounded-r-none rounded-r-lg sm:w-full focus:outline-none text-gray-800">
+        <button class="bg-black hover:bg-gray-800 text-white font-bold px-6 py-3 rounded-r-lg sm:rounded-l-none rounded-l-lg sm:mt-0 mt-2 transition duration-300">
+          Abonează-te
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-black text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center mb-4">
+            <i class="fas fa-book-open text-2xl text-blue-600 mr-2"></i>
+            <span class="font-bold text-xl">Nexus<span class="text-blue-600">Books</span></span>
+          </div>
+          <p class="text-gray-400">Cea mai bună experiență de cumpărare de cărți PDF online.</p>
+          <div class="flex space-x-4 mt-4">
+            <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-lg mb-4">Link-uri rapide</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white">Acasă</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">Cărți</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">Despre noi</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">Termeni și condiții</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-lg mb-4">Categorii</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white">Dezvoltare Personală</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">Tehnologie</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">Business</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">Sănătate</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">Ficțiune</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-lg mb-4">Contact</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2 text-blue-600"></i> Strada Cărții Nr. 10, București</li>
+            <li class="flex items-center"><i class="fas fa-phone-alt mr-2 text-blue-600"></i> +40 721 123 456</li>
+            <li class="flex items-center"><i class="fas fa-envelope mr-2 text-blue-600"></i> contact@nexusbooks.ro</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2023 NexusBooks. Toate drepturile rezervate.</p>
+      </div>
+    </div>
+  </footer>
 
   <script>
-    // Carte 1
-    paypal.Buttons({
-      createOrder: function(data, actions) {
-        return actions.order.create({
-          purchase_units: [{ amount: { value: '9.99' } }]
-        });
-      },
-      onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
-          alert('Mulțumim, ' + details.payer.name.given_name + '! Vei fi redirecționat pentru descărcare.');
-          window.location.href = '/download/puterea-gandirii.pdf';
-        });
-      }
-    }).render('#paypal-button-container-1');
+    // Enhanced PayPal Buttons with Loading States
+    function createPayPalButton(containerId, amount, bookName, downloadUrl) {
+      paypal.Buttons({
+        style: {
+          shape: 'rect',
+          color: 'blue',
+          layout: 'vertical',
+          label: 'pay',
+          height: 45
+        },
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: amount,
+                breakdown: {
+                  item_total: {
+                    value: amount,
+                    currency_code: 'EUR'
+                  }
+                }
+              },
+              items: [
+                {
+                  name: bookName,
+                  unit_amount: {
+                    value: amount,
+                    currency_code: 'EUR'
+                  },
+                  quantity: '1',
+                  category: 'DIGITAL_GOODS'
+                }
+              ]
+            }]
+          });
+        },
+        onInit: function(data, actions) {
+          // Disable the button if the user isn't eligible
+          if (data.fundingSource === 'paypal' && !data.fundingEligibility.paypal) {
+            document.querySelector(`#${containerId}`).innerHTML = 
+              '<button class="w-full bg-gray-300 text-gray-600 py-2 px-4 rounded-lg cursor-not-allowed">PayPal indisponibil</button>';
+          }
+        },
+        onClick: function() {
+          // Show loading state
+          const button = document.querySelector(`#${containerId} .paypal-buttons`);
+          if (button) {
+            button.innerHTML = '<div class="loading-spinner"></div>';
+          }
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            // Create a more sophisticated success message
+            const successHTML = `
+              <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <strong class="font-bold">Plată reușită!</strong>
+                <span class="block sm:inline">Mulțumim, ${details.payer.name.given_name}! Vei fi redirecționat pentru descărcare.</span>
+              </div>
+            `;
+            
+            // Insert success message above the button
+            document.querySelector(`#${containerId}`).insertAdjacentHTML('beforebegin', successHTML);
+            
+            // Redirect to download after 2 seconds
+            setTimeout(function() {
+              window.location.href = downloadUrl;
+            }, 2000);
+          });
+        },
+        onError: function(err) {
+          // Show error message
+          const errorHTML = `
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+              <strong class="font-bold">Eroare!</strong>
+              <span class="block sm:inline">A apărut o problemă la procesarea plății. Te rugăm să încerci din nou.</span>
+            </div>
+          `;
+          document.querySelector(`#${containerId}`).insertAdjacentHTML('beforebegin', errorHTML);
+          console.error(err);
+        }
+      }).render(`#${containerId}`);
+    }
 
-    // Carte 2
-    paypal.Buttons({
-      createOrder: function(data, actions) {
-        return actions.order.create({
-          purchase_units: [{ amount: { value: '12.99' } }]
-        });
-      },
-      onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
-          alert('Mulțumim, ' + details.payer.name.given_name + '! Vei fi redirecționat pentru descărcare.');
-          window.location.href = '/download/productivitate-zen.pdf';
-        });
-      }
-    }).render('#paypal-button-container-2');
-
-    // Carte 3
-    paypal.Buttons({
-      createOrder: function(data, actions) {
-        return actions.order.create({
-          purchase_units: [{ amount: { value: '7.99' } }]
-        });
-      },
-      onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
-          alert('Mulțumim, ' + details.payer.name.given_name + '! Vei fi redirecționat pentru descărcare.');
-          window.location.href = '/download/codul-creatorului.pdf';
-        });
-      }
-    }).render('#paypal-button-container-3');
+    // Initialize buttons
+    document.addEventListener('DOMContentLoaded', function() {
+      createPayPalButton('paypal-button-container-1', '9.99', 'Puterea Gândirii', '/download/puterea-gandirii.pdf');
+      createPayPalButton('paypal-button-container-2', '12.99', 'Productivitate Zen', '/download/productivitate-zen.pdf');
+      createPayPalButton('paypal-button-container-3', '7.99', 'Codul Creatorului', '/download/codul-creatorului.pdf');
+    });
   </script>
-
 </body>
 </html>
