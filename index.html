@@ -169,6 +169,61 @@ according to applicable laws.
     </div>
   </section>
 
+  
+  <!-- MODAL -->
+  
+  <!-- Modal Gallery -->
+<div id="book-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+  <div class="relative bg-white rounded-lg p-4 max-w-lg w-full">
+    <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-700 hover:text-red-500 text-2xl">&times;</button>
+    
+    <div class="relative">
+      <img id="modal-image" src="" class="w-full rounded-lg" alt="Book preview">
+      <button onclick="prevImage()" class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white bg-opacity-70 px-2 py-1 rounded-full">&#10094;</button>
+      <button onclick="nextImage()" class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white bg-opacity-70 px-2 py-1 rounded-full">&#10095;</button>
+    </div>
+  </div>
+</div>
+
+  
+  <script>
+  let currentImages = [];
+  let currentIndex = 0;
+
+  function openModal(images) {
+    currentImages = images;
+    currentIndex = 0;
+    document.getElementById('modal-image').src = currentImages[currentIndex];
+    document.getElementById('book-modal').classList.remove('hidden');
+  }
+
+  function closeModal() {
+    document.getElementById('book-modal').classList.add('hidden');
+  }
+
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % currentImages.length;
+    document.getElementById('modal-image').src = currentImages[currentIndex];
+  }
+
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+    document.getElementById('modal-image').src = currentImages[currentIndex];
+  }
+
+  // Detectează click pe orice galerie de carte
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.book-gallery img').forEach(img => {
+      img.addEventListener('click', (e) => {
+        const galleryDiv = e.target.closest('.book-gallery');
+        const images = JSON.parse(galleryDiv.getAttribute('data-images'));
+        openModal(images);
+      });
+    });
+  });
+</script>
+
+  
   <!-- Books Section -->
   <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
@@ -187,10 +242,10 @@ according to applicable laws.
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Book 1 -->
         <div class="book-card bg-white rounded-xl overflow-hidden shadow-md">
-          <div class="relative">
-            <img src="../gp2.png" alt="Puterea Gândirii" class="w-full h-48 object-cover">
-            <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">
-              BESTSELLER
+  <div class="relative book-gallery" data-images='["../gp2.png","../gp21.png","../gp22.png"]'>
+    <img src="../gp2.png" alt="Ghidul practicantului de karate" class="w-full h-48 object-cover cursor-pointer">
+    <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">
+      BESTSELLER
             </div>
           </div>
           <div class="p-6">
