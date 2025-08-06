@@ -1,35 +1,321 @@
+<!-- 
+ATENȚIE: Acest cod este protejat de drepturile de autor.
+Orice copiere, reutilizare sau distribuire fără o autorizație expresă
+scrisă din partea autorului este STRICT INTERZISĂ și constituie o
+încălcare a legii. Încălcarea acestor termeni va duce la acțiuni legale
+conform legislației în vigoare.
+
+NOTICE: This code is protected by copyright.
+Any unauthorized copying, reuse, or distribution without the express
+written consent of the author is STRICTLY PROHIBITED and constitutes
+a violation of the law. Breaching these terms will result in legal action
+according to applicable laws.
+-->
+
+
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Politica de Confidențialitate</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-            line-height: 1.6;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        h1 {
-            text-align: center;
-            color: #0056b3;
-            margin-bottom: 30px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TSKRO | Politică Cofidențialitate</title>
+    <link rel="icon" href="logo.png" type="image/png">
+  <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=RON&components=buttons,marks,funding-eligibility"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MOTOR PALTA DE INLOCUIT ---->
+  <script 
+  src="https://www.paypal.com/sdk/js?client-id=BAAoXoyuttbeWqbUnr6KDHNENmfT92tW0CcV3nE14BwCzepzKmRMKM7WYVoKwWL_HZ5oXED4YsJHAxkXck&components=hosted-buttons&disable-funding=venmo&currency=EUR">
+</script>
+
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap');
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --pure-white: #ffffff;
+      --light-gray: #f3f4f6;
+      --dark-gray: #1f2937;
+      --pure-black: #000000;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--light-gray);
+    }
+    .book-card {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    .book-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+    }
+    .nav-link {
+      position: relative;
+    }
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: var(--primary-blue);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover:after {
+      width: 100%;
+    }
+    .download-btn {
+      background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+      transition: all 0.3s ease;
+    }
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+    }
+    .hero-section {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    .feature-icon {
+      color: var(--primary-blue);
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: var(--pure-white);
+      animation: spin 1s ease-in-out infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    
+    .desktop-only { display: none; }
+@media (min-width: 1024px) {
+  .desktop-only { display: inline; }
+}
+
+    
+
+    
+  </style>
 </head>
-<body>
-    <h1>Politica de Confidențialitate</h1>
-    <p>
-        Ne angajăm să protejăm confidențialitatea vizitatorilor și clienților noștri.  
-        Datele personale colectate sunt folosite exclusiv pentru procesarea comenzilor și comunicarea cu dumneavoastră.  
-        Nu vom împărtăși informațiile dumneavoastră cu terți fără consimțământul explicit.  
-    </p>
-    <p>
-        Pentru mai multe detalii despre modul în care gestionăm datele, vă rugăm să ne contactați la adresa de email: contact@exemplu.ro.
-    </p>
+  
+  
+<body class="bg-gray-100 text-gray-800 antialiased">
+  <!-- Navigation -->
+  <nav class="shadow-lg" style="background: linear-gradient(135deg, #1d3557, #457b9d);">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center space-x-4">
+          <img src="logo.png" alt="TSK Romania Logo" class="h-8 w-auto">
+          <span class="font-bold text-xl text-white">Sensei 
+            <span style="color: #d1e0ec"><i>Simion Tudorel </i>
+              <span class="font-bold text-xl text-white">| TSK Romania</span>
+            </span>
+          </span>
+        </div>
+
+        <div class="flex items-center space-x-8">
+          <a href="https://www.store.tskro.org/" class="nav-link text-white font-medium no-underline">Acasă</a>
+          <a href="https://tskro.org/contact/" class="nav-link text-white font-medium no-underline">Contact</a>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <!-- alte elemente aici -->
+        </div>
+      </div>
+    </div>
+</nav>
+
+
+  <!-- Hero Section -->
+  <section class="hero-section text-white py-20">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-6xl font-bold mb-6"><span class="text-blue-400">Politică Cofidențialitate</span></h1>
+      <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto"><br><br></p>
+      
+      
+    </div>
+  </section>
+
+
+
+ 
+
+<section class="bg-white py-16">
+  <div class="max-w-4xl mx-auto px-4 text-gray-800 text-base leading-relaxed space-y-6">
+    
+    <p><strong>Data actualizării:</strong> 01-07-2025<br>
+    <strong>Data intrării în vigoare:</strong> 01-07-2025</p>
+
+    <p>Această Politică de confidențialitate descrie politica societății <strong>TSK Romania</strong>, Brașov, România, email: <a href="mailto:tskarate.ro@gmail.com" class="text-blue-600 underline">tskarate.ro@gmail.com</a>, telefon: <a href="tel:+40775360802" class="text-blue-600 underline">+40 775 360 802</a>, cu privire la colectarea, utilizarea și partajarea datelor personale în cazul utilizării site-ului nostru <strong>tskro.org</strong>, denumit în continuare „Serviciul”.</p>
+
+    <p>Prin accesarea și utilizarea Serviciului, îți exprimi acordul cu privire la colectarea, utilizarea și partajarea datelor personale, conform acestei Politici de confidențialitate. Dacă nu ești de acord, te rugăm să nu utilizezi Serviciul nostru.</p>
+
+    <p>Putem modifica această Politică de confidențialitate în orice moment, fără notificare prealabilă. Vom publica varianta actualizată și data intrării în vigoare. Politica modificată va intra în vigoare în termen de 180 de zile de la publicare pentru toți utilizatorii existenți. Continuarea utilizării Serviciului constituie acceptul tău privind noua versiune. Îți recomandăm să verifici periodic această pagină.</p>
+
+    <h2 class="text-xl font-semibold mt-10">Generalități</h2>
+
+    <p>Persoanele fizice care accesează site-ul web <a href="https://www.store.tskro.org" class="text-blue-600 underline">https://www.store.tskro.org/</a> pot naviga pe paginile sale și pot utiliza serviciile și conținutul său ca vizitatori obișnuiți. Prelucrarea datelor lor cu caracter personal ca urmare a accesului este reglementată de prezenta politică.</p>
+
+    <p>Compania <strong>[NUME FIRMA]</strong> este responsabilă de prelucrarea datelor cu caracter personal ale vizitatorilor și controlează prelucrarea acestora prin intermediul paginilor web ale site-ului www.store.tskro.org.</p>
+
+    <p>Prelucrarea datelor se face în conformitate cu <strong>GDPR</strong> (Regulamentul 2016/679), cu legislația română aplicabilă, precum și cu Legea nr. 365/2002 și deciziile ANSPDCP.</p>
+
+    <h2 class="text-xl font-semibold mt-10">Temeiurile juridice ale prelucrării</h2>
+
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Executarea unui contract (Art. 6.1.b GDPR)</strong>: prelucrarea datelor este necesară pentru finalizarea unei comenzi.</li>
+      <li><strong>Interes legitim (Art. 6.1.f GDPR)</strong>: prevenirea fraudelor, îmbunătățirea serviciilor, transmiterea de mesaje comerciale (dacă utilizatorul nu se opune).</li>
+      <li><strong>Obligație legală (Art. 6.1.c GDPR)</strong>: păstrarea datelor în scopuri fiscale/contabile.</li>
+      <li><strong>Consimțământ</strong>: completarea adresei de email este considerată acord pentru mesaje comerciale.</li>
+    </ul>
+
+    <h2 class="text-xl font-semibold mt-10">Informațiile pe care le colectăm</h2>
+
+    <ol class="list-decimal pl-6 space-y-2">
+      <li>Pe site nu se pot crea conturi. Comenzile se fac ca vizitator. Datele sunt păstrate 90 de zile.</li>
+      <li><strong>Beneficiarii datelor</strong>: motorul de plată (PayPal), angajații [NUME FIRMA].</li>
+      <li>Date colectate:
+        <ul class="list-disc pl-6 mt-2">
+          <li>automat – cookie-uri și tehnologii similare;</li>
+          <li>voluntar – formulare de contact.</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h2 class="text-xl font-semibold mt-10">Cum colectăm aceste informații</h2>
+
+    <ul class="list-disc pl-6 space-y-2">
+     <li>Deschiderea unui cont nou – Nu aplicabil;</li>
+     <li>Interacțiunea cu site-ul – Cookie-uri (ex: Google Analytics), alte tehnologii de urmărire în conformitate cu Politica de Cookie-uri;</li>
+     <li>Abonarea la newsletter / comunicări comerciale – Nu aplicabil;</li>
+     <li>Contact direct prin formulare / email – Se colectează informațiile furnizate voluntar (nume, email etc.);</li>
+     <li>Plăți online – Aplicabil; plățile, se vor realiza prin procesatori securizați PayPal, fără a stoca date de card.</li>
+
+    </ul>
+
+    <h2 class="text-xl font-semibold mt-10">Cum folosim informațiile colectate</h2>
+
+    <ul class="list-disc pl-6 space-y-2">
+      <li>Analiză statistică și îmbunătățirea serviciului;</li>
+      <li>Feedback și evaluarea interesului utilizatorilor;</li>
+      <li>Marketing general (nepersonalizat);</li>
+      <li>Răspunsuri la solicitări prin email/formular.</li>
+    </ul>
+
+    <p>Dacă vom dori să folosim datele pentru alte scopuri, vom cere consimțământul tău în prealabil.</p>
+
+    <h2 class="text-xl font-semibold mt-10">Cu cine partajăm datele</h2>
+
+    <p>Nu partajăm datele personale colectate cu terți fără acordul tău, cu excepția următoarelor situații:</p>
+
+    <ul class="list-disc pl-6 space-y-2">
+      <li>Furnizori analiză web (ex: Google Analytics);</li>
+      <li>Autorități – dacă avem obligație legală;</li>
+      <li>În cazul unei fuziuni/preluări – datele pot fi transferate.</li>
+    </ul>
+
+    <p>Orice terță parte cu care colaborăm este obligată să folosească informațiile doar în scopul convenit și să le păstreze în siguranță pentru perioada necesară.</p>
+
+    <h2 class="text-xl font-semibold mt-10">Stocarea datelor</h2>
+
+    <p>Păstrăm datele colectate pentru maximum 24 luni, sau atât cât este necesar pentru scopul în care au fost colectate.</p>
+    <p>Putem păstra anumite date mai mult timp, în conformitate cu obligațiile legale (ex: contabilitate, prevenirea fraudelor).</p>
+    <p>Datele anonime și informațiile agregate (care nu pot identifica utilizatorul) pot fi stocate pe termen nedeterminat. </p>
+      
+    <h2 class="text-xl font-semibold mt-10">Drepturile tale</h2>
+
+    <p>Conform GDPR, ai următoarele drepturi:</p>
+
+    <ul class="list-disc pl-6 space-y-2">
+      <li>Dreptul de acces;</li>
+      <li>Dreptul la rectificare;</li>
+      <li>Dreptul la ștergere („dreptul de a fi uitat”);</li>
+      <li>Dreptul la restricționare;</li>
+      <li>Dreptul la opoziție;</li>
+      <li>Dreptul la portabilitate.</li>
+    </ul>
+
+    <p>Poți oricând solicita oprirea folosirii datelor tale pentru marketing sau analiză, prin email sau modificând setările cookie.</p>
+
+    <h2 class="text-xl font-semibold mt-10">Cookie-uri și tehnologii de urmărire</h2>
+
+    <p>Folosim cookie-uri și tehnologii similare pentru a analiza traficul, îmbunătăți experiența de utilizare și adapta conținutul. Detalii suplimentare sunt disponibile în Politica Cookie.</p>
+
+    <h2 class="text-xl font-semibold mt-10">Securitatea datelor</h2>
+
+    <p>Ne angajăm să protejăm datele colectate prin măsuri tehnice și organizatorice adecvate. Cu toate acestea, nu putem garanta securitate absolută, dat fiind riscurile inerente internetului.</p>
+
+    <h2 class="text-xl font-semibold mt-10">Link-uri externe</h2>
+
+    <p>Site-ul poate conține link-uri către alte site-uri externe. Această Politică nu se aplică acelor site-uri. Nu suntem responsabili pentru conținutul, politicile sau practicile lor. Recomandăm consultarea Politicilor de confidențialitate proprii ale acestor site-uri.</p>
+
+    <h2 class="text-xl font-semibold mt-10">Dreptul la informare</h2>
+
+    <p>Pentru orice informații, probleme tehnice sau nelămuriri privind funcționarea tehnică a site-ului, inclusiv utilizarea cookie-urilor și a datelor colectate automat, ne puteți contacta la adresa de e-mail <a href="mailto:andreistanescux@gmail.com" class="text-blue-600 underline">andreistanescux@gmail.com</a>.</p>
+
+    <p><em>Atenție:</em> Vă rugăm să rețineți că această adresă de e-mail nu este destinată solicitărilor legate de conținutul site-ului (texte sau imagini).</p>
+
+  </div>
+</section>
+
+  
+
+  <!-- Footer -->
+  <footer class="bg-black text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center mb-4">
+            <i class="fas fa-book-open text-2xl text-blue-600 mr-2"></i>
+            <span class="font-bold text-xl">TSK <span class="text-blue-600">România</span></span>
+          </div>
+          <p class="text-gray-400">Cea mai bună experiență de cumpărare de cărți PDF online.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-lg mb-4">Informații</h4>
+          <ul class="space-y-2">
+             <li><a href="https://www.store.tskro.org/politica-de-confidentialitate/" class="text-gray-400 hover:text-white">Politică de confidențialitate</a></li>
+            <li><a href="https://www.store.tskro.org/" class="text-gray-400 hover:text-white">Termeni și condiții</a></li>
+            <li><a href="https://tskro.org/desprenoi/" class="text-gray-400 hover:text-white">Politica de retur / garanție</a></li>
+            <li><a href="https://tskro.org/contact/" class="text-gray-400 hover:text-white">Datele de identificare</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-lg mb-4">Link-uri rapide</h4>
+          <ul class="space-y-2">
+            <li><a href="https://tskro.org/" class="text-gray-400 hover:text-white">Acasă</a></li>
+            <li><a href="https://www.store.tskro.org/" class="text-gray-400 hover:text-white">Cărți</a></li>
+            <li><a href="https://tskro.org/desprenoi/" class="text-gray-400 hover:text-white">Despre noi</a></li>
+            <li><a href="https://tskro.org/contact/" class="text-gray-400 hover:text-white">Contact</a></li>
+           
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-lg mb-4">Contact</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2 text-blue-600"></i> Brașov, România</li>
+            <li class="flex items-center"><i class="fas fa-phone-alt mr-2 text-blue-600"></i> +40 775 360 802</li>
+            <li class="flex items-center"><i class="fas fa-envelope mr-2 text-blue-600"></i> tskarate.ro@gmail.com</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 TSK România. Toate drepturile rezervate. Creat & Conceput de Andrei Stănescu</p>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
