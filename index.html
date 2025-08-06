@@ -28,195 +28,6 @@ according to applicable laws.
   src="https://www.paypal.com/sdk/js?client-id=BAAoXoyuttbeWqbUnr6KDHNENmfT92tW0CcV3nE14BwCzepzKmRMKM7WYVoKwWL_HZ5oXED4YsJHAxkXck&components=hosted-buttons&disable-funding=venmo&currency=EUR">
 </script>
 
-
-
-
-
-
-
-
-<!-- Notificare Site în Construcție + Login Secret -->
-<div id="construction-notice" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:linear-gradient(145deg, #e0eafc, #cfdef3); display:flex; align-items:center; justify-content:center; flex-direction:column; z-index:9999; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; animation:fadeInPage 1s ease;">
-
-  <!-- Canvas pentru buline -->
-  <canvas id="bubbles-canvas" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0;"></canvas>
-
-  <h1 style="font-size:3em; color:#2c3e50; margin-bottom:12px; animation:slideDown 0.8s ease forwards;">🔧 Site în construcție</h1>
-  <p style="font-size:1.3em; color:#34495e; text-align:center; max-width:520px; line-height:1.4; opacity:0; animation:fadeInText 1s 0.6s forwards;">
-    Pregătim ceva special pentru tine!<br>Lucrăm din greu pentru a finaliza noul nostru site web.<br><br>
-    Ne poți contacta oricând accesând pagina noastră de contact:<br>
-    <a href="https://tskro.org/contact/" target="_blank" style="color:#2980b9; font-weight:600; text-decoration:none;">https://tskro.org/contact/</a>
-  </p>
-
-  <!-- Buton invizibil în colț dreapta jos -->
-  <button id="secret-button" style="position:absolute; bottom:10px; right:10px; opacity:0; width:40px; height:40px; cursor:pointer; border:none; background:none;"></button>
-
-  <!-- Panou Login ascuns -->
-  <div id="login-panel" style="display:none; margin-top:32px; background:#ffffff; padding:28px 32px; box-shadow:0 10px 30px rgba(0,0,0,0.12); border-radius:14px; animation:fadeInPanel 0.4s ease; min-width:320px; position:relative; z-index:10;">
-    <h2 style="margin-bottom:20px; color:#2c3e50; font-weight:600;">🔐 Autentificare</h2>
-    <input type="text" id="username" placeholder="Utilizator" style="padding:12px 14px; margin-bottom:14px; width:100%; border:1.8px solid #ccc; border-radius:8px; font-size:1em; transition: border-color 0.3s, box-shadow 0.3s;"><br>
-    <input type="password" id="password" placeholder="Parolă" style="padding:12px 14px; margin-bottom:20px; width:100%; border:1.8px solid #ccc; border-radius:8px; font-size:1em; transition: border-color 0.3s, box-shadow 0.3s;"><br>
-    <button onclick="verifyLogin()" style="padding:12px 28px; background:#3498db; color:#fff; border:none; border-radius:8px; font-size:1em; cursor:pointer; transition:background 0.3s;">
-      Login
-    </button>
-  </div>
-
-  <!-- Zona de avertizare administrativă (ascunsă la început) -->
-  <div id="admin-alert" style="display:none; margin-top:20px; padding:16px 24px; background:#e74c3c; color:#fff; font-weight:700; border-radius:12px; box-shadow: 0 0 20px rgba(231, 76, 60, 0.8); min-width:320px; max-width:400px; text-align:center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; animation:fadeInPanel 0.5s ease;">
-    ⚠️ <span style="text-transform:uppercase;">Zona administrativă</span><br>
-    Notificare trimisă administratorului!<br>
-    IP detectat și înregistrat!
-  </div>
-
-  <!-- Footer cu semnătură -->
-    <footer style="position:absolute; bottom:14px; font-size:0.9em; color:#7f8c8d; font-weight:500; user-select:none; z-index:10; background:transparent;">
-    Site făcut de 
-    <a href="https://andreist.great-site.net" target="_blank" rel="noopener noreferrer" style="color:#2980b9; text-decoration:none; font-weight:600;">Andrei Stănescu</a>
-  </footer>
-</div>
-
-<style>
-  @keyframes fadeInPage {
-    from {opacity: 0;}
-    to {opacity: 1;}
-  }
-
-  @keyframes fadeOutPage {
-    to {opacity: 0; visibility: hidden;}
-  }
-
-  @keyframes slideDown {
-    from {transform: translateY(-20px); opacity: 0;}
-    to {transform: translateY(0); opacity: 1;}
-  }
-
-  @keyframes fadeInText {
-    to {opacity: 1;}
-  }
-
-  @keyframes fadeInPanel {
-    from {opacity: 0; transform: scale(0.95);}
-    to {opacity: 1; transform: scale(1);}
-  }
-
-  #login-panel button:hover {
-    background: #2980b9;
-  }
-
-  input:focus {
-    outline: none;
-    border-color: #3498db !important;
-    box-shadow: 0 0 6px rgba(52, 152, 219, 0.5) !important;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-</style>
-
-<script>
-  const canvas = document.getElementById('bubbles-canvas');
-  const ctx = canvas.getContext('2d');
-
-  let width, height;
-  let bubbles = [];
-
-  function resize() {
-    width = canvas.width = canvas.clientWidth;
-    height = canvas.height = canvas.clientHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  class Bubble {
-    constructor() {
-      this.radius = 8 + Math.random() * 7;
-      this.x = Math.random() * width;
-      this.y = Math.random() * height * 0.5 - height;
-      this.vx = (Math.random() - 0.5) * 1.2;
-      this.vy = 0;
-      this.gravity = 0.15 + Math.random() * 0.05;
-      this.color = `hsl(${Math.random() * 360}, 70%, 65%)`;
-      this.bounceFactor = 0.7 + Math.random() * 0.3;
-    }
-
-    update() {
-      this.vy += this.gravity;
-      this.x += this.vx;
-      this.y += this.vy;
-
-      if (this.y + this.radius > height) {
-        this.y = height - this.radius;
-        this.vy *= -this.bounceFactor;
-      }
-      if (this.x + this.radius > width) {
-        this.x = width - this.radius;
-        this.vx *= -1;
-      }
-      if (this.x - this.radius < 0) {
-        this.x = this.radius;
-        this.vx *= -1;
-      }
-    }
-
-    draw() {
-      ctx.beginPath();
-      ctx.fillStyle = this.color;
-      ctx.shadowColor = this.color;
-      ctx.shadowBlur = 6;
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-
-  for(let i=0; i<40; i++){
-    bubbles.push(new Bubble());
-  }
-
-  function animate() {
-    ctx.clearRect(0, 0, width, height);
-    bubbles.forEach(bubble => {
-      bubble.update();
-      bubble.draw();
-    });
-    requestAnimationFrame(animate);
-  }
-  animate();
-
-  const secretBtn = document.getElementById('secret-button');
-  const loginPanel = document.getElementById('login-panel');
-  const adminAlert = document.getElementById('admin-alert');
-  const notice = document.getElementById('construction-notice');
-
-  secretBtn.addEventListener('click', () => {
-    loginPanel.style.display = 'block';
-    loginPanel.style.animation = 'fadeInPanel 0.4s ease';
-    adminAlert.style.display = 'block';
-    adminAlert.style.animation = 'fadeInPanel 0.5s ease';
-  });
-
-  function verifyLogin() {
-    const user = document.getElementById('username').value.trim();
-    const pass = document.getElementById('password').value.trim();
-
-    if (user === 'andrei' && pass === 'andrei') {
-      notice.style.animation = 'fadeOutPage 0.5s ease forwards';
-      setTimeout(() => {
-        notice.style.display = 'none';
-      }, 500);
-    } else {
-      alert('Date incorecte! ADMINISTRATOR SESIZAT! IP INREGISTRAT!');
-    }
-  }
-</script>
-
-
-
-
-  
-
-
-
   
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap');
@@ -303,23 +114,30 @@ according to applicable laws.
   
 <body class="bg-gray-100 text-gray-800 antialiased">
   <!-- Navigation -->
-  <nav class="bg-white shadow-lg">
+  <nav class="shadow-lg" style="background: linear-gradient(135deg, #1d3557, #457b9d);">
     <div class="container mx-auto px-4">
       <div class="flex justify-between items-center py-4">
         <div class="flex items-center space-x-4">
-          <i class="fas fa-book-open text-2xl text-blue-600"></i>
-          <span class="font-bold text-xl text-black">Sensei <span class="text-blue-600">Simion Tudorel <span class="font-bold text-xl text-black">| TSK Romania</span></span></spam>
+          <img src="logo.png" alt="TSK Romania Logo" class="h-8 w-auto">
+          <span class="font-bold text-xl text-white">Sensei 
+            <span style="color: #d1e0ec"><i>Simion Tudorel </i>
+              <span class="font-bold text-xl text-white">| TSK Romania</span>
+            </span>
+          </span>
         </div>
+
         <div class="flex items-center space-x-8">
-          <a href="https://www.store.tskro.org/" class="nav-link text-black font-medium">Acasă</a>
-          <a href="https://tskro.org/contact/" class="nav-link text-black font-medium">Contact</a>
+          <a href="https://www.store.tskro.org/" class="nav-link text-white font-medium no-underline">Acasă</a>
+          <a href="https://tskro.org/contact/" class="nav-link text-white font-medium no-underline">Contact</a>
         </div>
+
         <div class="flex items-center space-x-4">
-          
+          <!-- alte elemente aici -->
         </div>
       </div>
     </div>
-  </nav>
+</nav>
+
 
   <!-- Hero Section -->
   <section class="hero-section text-white py-20">
@@ -399,6 +217,14 @@ according to applicable laws.
   }).render("#paypal-container-4X85PV5DR6X46")
 </script>
       
+        
+        <div id="paypal-container-SME5Q36SZNSJC"></div>
+<script>
+  paypal.HostedButtons({
+    hostedButtonId: "SME5Q36SZNSJC",
+  }).render("#paypal-container-SME5Q36SZNSJC")
+</script>
+        
     </div>
 
 
