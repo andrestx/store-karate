@@ -1,5 +1,6 @@
 
 # 🚨 TSKRO | © 2025 andreistx | STORE 🚨
+# Contact me if you have any questions or like what you see.
 ⚠️ ATENȚIE! Acest proiect este protejat de drepturile de autor.
 👀 Nu copia, nu distribui, nu reutiliza codul fără acordul scris al autorului.
 📜 Orice încălcare va fi tratată conform legii – cu măsuri legale clare.
